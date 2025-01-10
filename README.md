@@ -1,23 +1,50 @@
+# import streamlit as st
+
+# st.title('Welcome to Streamlit Development Class!')
+# st.write('We will learning how to create Web Apps using Python programming with Streamlit Library')
+# st.warning('Stay Tune!')
+# st.success('Almost there!')
+# st.header('A...')
+# st.subheader('B...')
+# st.balloons()
+# st.success('Done!')
+
+
 import streamlit as st
-import pandas as pd
 
-# Load data unsur (misalnya dari file CSV)
-df = pd.read_csv('data/elements.csv')
+def main():
+    st.title("Tabel Periodik Sederhana")
+    st.write("Aplikasi ini mengetahui simbol, nomor atom, dan nomor massa.") 
+    
+    # Input angka pertama
+    num1 = st.number_input("Masukkan angka pertama:", value=0.0, step=1.0)
 
-# Fungsi untuk mencari unsur berdasarkan simbol
-def search_element(symbol):
-    return df[df['symbol'] == symbol]
-
-# Judul aplikasi
-st.title("Tabel Periodik Sederhana")
-
-# Input untuk mencari unsur
-symbol = st.text_input("Masukkan simbol unsur:")
-
-# Tampilkan hasil pencarian
-if symbol:
-    result = search_element(symbol)
-    if not result.empty:
-        st.write(result)
-    else:
-        st.write("Unsur tidak ditemukan.")
+    # Input angka kedua
+    num2 = st.number_input("Masukkan angka kedua:", value=0.0, step=1.0)
+    
+    # Pilihan operasi
+    operation = st.selectbox(
+        "Pilih operasi matematika:",
+        ("Penjumlahan", "Pengurangan", "Perkalian", "Pembagian")
+    )
+    
+    # Tombol untuk menghitung
+    if st.button("Hitung"):
+        if operation == "Penjumlahan":
+            result = num1 + num2
+            st.success(f"Hasil Penjumlahan: {result}")
+        elif operation == "Pengurangan":
+            result = num1 - num2
+            st.success(f"Hasil Pengurangan: {result}")
+        elif operation == "Perkalian":
+            result = num1 * num2
+            st.success(f"Hasil Perkalian: {result}")
+        elif operation == "Pembagian":
+            if num2 != 0:
+                result = num1 / num2
+                st.success(f"Hasil Pembagian: {result}")
+            else:
+                st.error("Kesalahan: Pembagian dengan nol tidak diperbolehkan.")
+    
+if __name__ == "__main__":
+    main()
